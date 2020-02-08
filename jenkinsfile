@@ -3,8 +3,9 @@ pipeline{
     stages{
         stage('Deploy petstore'){
             steps{
-                sh "docker run -p 8080:8080 swaggerapi/petstore"
+                sh "docker-compose -f petstore.yml up -d"
             }
         }
+        
     }
 }
