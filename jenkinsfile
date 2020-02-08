@@ -1,9 +1,9 @@
 pipeline{
     agent any
     stages{
-        stage('Build'){
+        stage('Deploy petstore'){
             steps{
-                echo "hello world"
+                sh "docker run -p 8080:8080 swagger/petstore"
             }
         }
     }
