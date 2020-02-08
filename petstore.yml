@@ -1,0 +1,7 @@
+version: "3.2"
+services:
+    petstore:
+        image: "swagger/petstore"
+        container_name: pet
+        ports:
+            - "8080:8080"
