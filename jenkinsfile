@@ -5,19 +5,13 @@ pipeline{
             steps{
                 sh "docker-compose -f petstore.yml up -d"
 
-                timeout(1) {
-                    waitUntil {
-                        script {
-                            try {
-                                def response = httpRequest url: "http://host.docker.internal:8080", validResponseCodes: '200:404'
-                                return (response.status == 200)
-                            } catch (Exception e){
-                                return false;
-                            }
+            }
+        }
+        stage('Deploy verify'){
+            agent { docker { image 'localhost:5000/my-python'}}
+            stpes{
+                sh "fab -r scripts petstore-accessible --url=http://host.docker.internal:8080"
 
-                        }
-                    }
-                }
             }
         }
     }
