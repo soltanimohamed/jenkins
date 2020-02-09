@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Deploy petstore') {
             steps {
-                sh "docker-compose -f petstore-compose.yml up -d"
+                sh "docker-compose -f petstore.yml up -d"
             }
         }
 
