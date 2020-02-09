@@ -11,7 +11,7 @@ pipeline {
         stage ('Deploy verify') {
             agent { docker { image 'localhost:5000/my-python' } }
             steps {
-                sh "fab -r scripts petstore-accessible --url=http://host.docker.internal:8080"
+                sh "fab -r scripts petstore_accessible --url=http://host.docker.internal:8080"
             }
         }
     }
