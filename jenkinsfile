@@ -1,25 +1,24 @@
-pipeline{
+pipeline {
     agent any
-    stages{
-        stage('Deploy petstore'){
-            steps{
-                sh "docker-compose -f petstore.yml up -d"
 
+    stages {
+        stage('Deploy petstore') {
+            steps {
+                sh "docker-compose -f petstore-compose.yml up -d"
             }
         }
-        stage('Deploy verify'){
-            agent { docker { image 'localhost:5000/my-python'}}
-            stpes{
+
+        stage ('Deploy verify') {
+            agent { docker { image 'localhost:5000/my-python' } }
+            steps {
                 sh "fab -r scripts petstore-accessible --url=http://host.docker.internal:8080"
-
             }
         }
     }
+
     post {
-        always {
-            sh "docker-compose -f petstore.yml stop"
+       always {
+            sh "docker-compose -f petstore-compose.yml stop"
         }
     }
-        
-    
 }
